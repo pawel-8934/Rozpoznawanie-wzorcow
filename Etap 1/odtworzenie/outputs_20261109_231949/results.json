@@ -1,0 +1,38 @@
+{
+  "paper_reference": {
+    "title": "On Calibration of Modern Neural Networks (Guo et al., 2017)",
+    "setting": "CIFAR-10 / LeNet-5 / Temperature Scaling",
+    "paper_ece_uncalibrated_percent": 3.02,
+    "paper_ece_temp_scaling_percent": 0.93,
+    "ece_bins": 15
+  },
+  "training": {
+    "epochs": 200,
+    "batch_size": 128,
+    "optimizer": "SGD",
+    "lr": 0.01,
+    "momentum": 0.9,
+    "weight_decay": 0.0001,
+    "seed": 42,
+    "best_checkpoint_epoch": 184,
+    "best_val_loss": 0.7373479603290558,
+    "best_val_acc": 0.746
+  },
+  "temperature": 1.1308530569076538,
+  "test_uncalibrated": {
+    "accuracy": 0.7405999898910522,
+    "nll": 0.7561364769935608,
+    "ece": 0.029111245606839656,
+    "mce": 0.18892993032932281,
+    "ece_percent": 2.9111245606839655,
+    "mce_percent": 18.89299303293228
+  },
+  "test_temperature_scaling": {
+    "accuracy": 0.7405999898910522,
+    "nll": 0.7486301064491272,
+    "ece": 0.010210952375829219,
+    "mce": 0.044807299971580505,
+    "ece_percent": 1.0210952375829219,
+    "mce_percent": 4.4807299971580505
+  }
+}

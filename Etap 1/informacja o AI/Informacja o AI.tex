@@ -1,0 +1,149 @@
+% Kompilator: XeLaTeX (zalecany) lub LuaLaTeX
+% Wymagane czcionki systemowe: Verdana, Calibri (Windows)
+% Pakiety: fontspec, geometry, setspace, babel, ragged2e
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[polish]{babel}
+\usepackage[
+  left=25mm,
+  right=25mm,
+  top=25mm,
+  bottom=25mm
+]{geometry}
+\usepackage{setspace}
+\usepackage{ragged2e}
+
+\setmainfont{Verdana}[
+  BoldFont=Verdana Bold,
+  ItalicFont=Verdana Italic,
+  BoldItalicFont=Verdana Bold Italic
+]
+\newfontfamily\pagenumfont{Calibri}
+
+\pagestyle{plain}
+\renewcommand{\thepage}{\pagenumfont\arabic{page}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\RaggedRight
+\frenchspacing
+
+\doublespacing
+
+% Pełna linia kropek (jak w oryginale)
+\newcommand{\kropki}{%
+  \noindent
+  \makebox[\linewidth][l]{%
+    .......................................................................................................%
+  }%
+  \par
+}
+
+\begin{document}
+% \setstretch{1.55}
+% \vspace{1.5em}
+
+% --- nagłówek: blok przy prawym marginesie, linie wyrównane do lewej ---
+\noindent\hfill
+{\fontsize{11}{9}\selectfont\itshape
+\begin{tabular}{@{}l@{}}
+Załącznik nr 2A do Zasad\\
+korzystania z narzędzi\\
+AI przez studentów\\
+i doktorantów Politechniki Opolskiej
+\end{tabular}%
+}
+
+% \vspace{0.1em}
+
+% --- tytuł ---
+\begin{center}
+INFORMACJA O WYKORZYSTANIU NARZĘDZI AI
+\end{center}
+
+% \vspace{1.5em}
+
+% --- 1. Zastosowanie wzoru ---
+\noindent\textbf{1. Zastosowanie wzoru}
+
+% \vspace{0.6em}
+
+\noindent Niniejszy wzór służy do ujawnienia wykorzystania AI w pracy\\
+zaliczeniowej, projekcie, prezentacji lub innym materiale przekazywanym\\
+do oceny.
+
+% \vspace{0.8em}
+
+\noindent Informację można zamieścić w treści, przed bibliografią, w części\\
+metodologicznej albo w innym miejscu wskazanym przez prowadzącego\\
+zajęcia, promotora lub opiekuna naukowego.
+
+% \vspace{1.2em}
+
+% --- 2. Wariant 1 ---
+\noindent\textbf{2. Wariant 1 -- gdy korzystano z AI w zakresie wymagającym}\\
+\textbf{ujawnienia}
+
+% \vspace{0.85em}
+
+\noindent W przygotowaniu materiałów Etapu~1 projektu z przedmiotu
+Rozpoznawanie wzorców korzystałem z następujących narzędzi AI:
+
+% \vspace{1.35em}
+
+\noindent nazwa narzędzia lub narzędzi:
+
+% \vspace{0.85em}
+
+\noindent Claude, Cursor
+
+% \vspace{1.1em}
+
+\noindent Cel i zakres wykorzystania:
+
+% \vspace{0.85em}
+
+\noindent Zgodnie z poziomem~2 według zasad przedmiotu (AI jako wsparcie
+pracy): pomoc w nauce pojęć i zagadnienia z wybranej publikacji,
+redakcji tekstu prezentacji, a także przygotowaniu
+fragmentów kodu notatnika z próbnym uruchomieniem.
+
+Decyzje badawcze, wybór zakresu odtworzenia i adaptacji,
+ostateczna treść merytoryczna pozostały po stronie autora.
+
+% \vspace{0.7em}
+
+\noindent Elementy przygotowane lub zmienione z wykorzystaniem AI:
+
+% \vspace{0.85em}
+
+\noindent szkic opracowania teoretycznego, szkice treści slajdów
+prezentacji Etapu~1, fragmenty kodu notatnika z próbnym uruchomieniem.
+
+% --- kontynuacja wariantu 1 ---
+\noindent Wyniki uzyskane przy użyciu AI zostały przeze mnie sprawdzone, a za\\
+ostateczną treść i poprawność przygotowanego materiału ponoszę\\
+odpowiedzialność.
+
+% \vspace{1.2em}
+
+% --- 3. Wariant 2 (nie dotyczy -- wypełniono wariant 1) ---
+\noindent\textbf{3. Wariant 2 -- gdy nie korzystano z AI w zakresie wymagającym}\\
+\textbf{ujawnienia}
+
+% \vspace{0.85em}
+
+\noindent Oświadczam, że podczas przygotowywania
+
+% \vspace{0.85em}
+
+\noindent \textit{(nie dotyczy -- zastosowano wariant~1)}
+
+% \vspace{0.85em}
+
+\noindent nie korzystałem/am z narzędzi AI w sposób, który wpłynął na treść,\\
+strukturę, rozwiązanie, kod, obliczenia, analizę, interpretację, wnioski lub\\
+inne elementy materiału przekazywanego do oceny.
+
+\end{document}

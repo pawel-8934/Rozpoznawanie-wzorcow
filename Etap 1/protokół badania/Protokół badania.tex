@@ -1,0 +1,80 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+% \doublespacing
+
+\begin{document}
+
+\title{Protokół badania\\Kalibracja prawdopodobieństw przez temperature scaling}
+\author{Paweł Gola 104743}
+\date{10 listopada 2026}
+
+\maketitle
+
+\section{Pytanie i hipotezy}
+
+\noindent
+Pytanie: czy jedna temperatura poprawia kalibrację małej sieci i jak liczba przykładów kalibracyjnych wpływa na wiarygodność tej poprawy?
+
+\begin{itemize}
+    \item \textbf{H1.} Temperatura dopasowana na zbiorze kalibracyjnym zmniejsza NLL na teście, a ECE maleje, jeśli sieć była źle skalibrowana. Accuracy nie zmienia się.
+    \item \textbf{H2.} Przy $30$ obiektach temperatura jest mocno zmienna. Przy $100$ i $300$ obiektach zmienność maleje, a poprawa NLL jest częstsza i bardziej przewidywalna.
+\end{itemize}
+
+\section{Odtworzenie}
+
+\noindent
+Odtwarzany będzie wynik z tabeli 1 publikacji dla sieci LeNet-5 na CIFAR-10: ECE $3{,}02\%$ przed kalibracją i $0{,}93\%$ po skalowaniu temperaturą.
+CIFAR-10: obrazy $32\times32$, 10 klas, $50\,000$ treningowych i $10\,000$ testowych.
+Podział jak w publikacji: trening $45\,000$, walidacja $5\,000$, test $10\,000$.
+Temperatura dopasowywana na walidacji; accuracy, NLL i ECE oceniane na teście.
+
+\noindent
+Zmiany względem publikacji: implementacja w PyTorch (publikacja: Torch7); własne parametry treningu i wariant LeNet-5; odtwarzanie tylko stanu przed skalowaniem i po nim --- bez pozostałych metod kalibracji.
+Porównanie z publikacją jakościowe: brak zmiany accuracy, spadek ECE i NLL, $T>1$ przy nadmiernym confidence, diagram niezawodności bliżej przekątnej.
+
+\section{Badanie własne}
+
+\subsection{Dane i podział}
+Zbiór \emph{digits} z biblioteki scikit-learn: $1797$ obrazów cyfr $8\times8$ (64 cechy) z dziesięcioma klasami.
+Dane dzielone są warstwowo na trzy rozłączne części z ziarnem $42$:
+\begin{itemize}
+    \item trening sieci: $900$ obiektów,
+    \item zbiór kalibracyjny: $300$ obiektów (pula próbek $30$, $100$ i $300$),
+    \item test końcowy: $597$ obiektów.
+\end{itemize}
+
+\subsection{Sieć, metody i miary}
+Mała sieć MLP: $64$ wejścia, jedna warstwa ukryta z $64$ neuronami ReLU oraz $10$ wyjść.
+Uczenie entropią krzyżową optymalizatorem Adam przez $150$ epok; pięć treningów z różnymi ziarnami.
+\begin{itemize}
+    \item Metody: punkt odniesienia ($T=1$) oraz model po skalowaniu temperaturą ($T^\ast$).
+    \item Miary: accuracy, średnia NLL, ECE z $M=15$ oraz diagram niezawodności.
+\end{itemize}
+
+\subsection{Część A i część B}
+\textbf{Część A.} Temperatura dopasowana na całej puli $300$ obiektów i porównanie modelu przed skalowaniem oraz po nim na teście.
+Ta część sprawdza, czy jedna temperatura poprawia kalibrację małej sieci.
+
+\noindent
+\textbf{Część B.} Dla $200$ zagnieżdżonych próbek $30$, $100$ i $300$ obiektów dopasowanie $T$ i ocenianie wyników na tym samym teście.
+Zaprezentowanie rozrzutu temperatur oraz odsetka losowań, w których skalowanie poprawiło NLL i ECE.
+
+\section{Kontrola przecieku i wykonalność}
+
+\noindent
+Ustalone przed oceną na teście: temperatura (wyłącznie na kalibracji/walidacji), liczba epok, $M=15$, podział danych i ziarna.
+Test służy wyłącznie do oceny końcowej.
+Zbiór kalibracyjny nie bierze udziału w treningu sieci; normalizacja liczona tylko na treningu; porównania na tych samych logitach.
+
+\noindent
+Wnioski dotyczą jednej małej architektury i jednego zbioru.
+Mały test czyni ECE niepewnym; próbki $30$ i $100$ pochodzą z tej samej puli $300$, więc nie są niezależne.
+Dane: CIFAR-10 (torchvision), \emph{digits} (scikit-learn); biblioteki: PyTorch, Probmetrics, NumPy, scikit-learn, Matplotlib.
+Uruchomienie na CPU (laptop lub Google Colab).
+
+\end{document}

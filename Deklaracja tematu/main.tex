@@ -1,0 +1,65 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+% \doublespacing
+
+\begin{document}
+
+\title{Kalibracja prawdopodobieństw przez temperature scaling}
+\author{Paweł Gola 104743}
+\date{20 października 2026}
+
+\maketitle
+
+\section{Temat}
+\noindent
+Wybrany temat: 8. Kalibracja prawdopodobieństw przez temperature scaling
+\\
+Publikacja: C. Guo, G. Pleiss, Y. Sun, K. Q. Weinberger. On Calibration of Modern Neural Networks. ICML 2017.
+\\
+Repozytorium: https://github.com/pawel-8934/Rozpoznawanie-wzorcow
+
+\section{Pytanie badawcze}
+
+Czy jedna temperatura poprawia kalibrację małej sieci i jak liczba przykładów kalibracyjnych wpływa na wiarygodność tej poprawy?
+
+\section{Opis zadania}
+
+Projekt dotyczy kalibracji prawdopodobieństw zwracanych przez małą sieć MLP. Obejmuje część teoretyczną, odtworzenie wyniku z publikacji w wersji adaptowanej oraz eksperyment własny.
+
+\subsection{Część teoretyczna}
+Omówione zostaną logity, softmax, ujemna logwiarygodność (NLL), kalibracja i ECE oraz różnica między trafnością klasyfikacji a poprawną interpretacją poziomu pewności. Kluczowym wzorem jest softmax z temperaturą:
+\[
+    p_j(T) = \frac{\exp{(z_j/T)}}{\sum_k \exp(z_k/T)}, \qquad T > 0.
+\]
+Przedstawiony zostanie przykład obliczeniowy dla logitów 2 i 0 przy $T=1$ oraz $T=2$. Uzasadnione zostanie, dlaczego dodatnia temperatura nie zmienia argmax, oraz opisany sposób dopasowania $T$ przez minimalizację NLL.
+
+\subsection{Odtworzenie}
+Na zbiorze \emph{digits} (1797 obiektów) wytrenowana zostanie mała MLP. Dane zostaną podzielone na trzy rozłączne części: trening sieci, kalibrację temperatury (z możliwością pobierania próbek do 300 obiektów) i końcowy test. Model zostanie porównany przed i po temperature scaling pod względem accuracy, NLL, ECE i wykresu kalibracji. Liczba koszyków ECE zostanie zapisana przed oceną. Temperatura, liczba epok i liczba koszyków nie będą dobierane na zbiorze testowym.
+
+\subsection{Eksperyment własny}
+Temperatura zostanie dopasowana na 30, 100 i 300 obiektach kalibracyjnych, przy tej samej sieci i tym samym teście. Próbki będą zagnieżdżone, a porównania wykonane na tych samych logitach. Przedstawiona zostanie zmienność uzyskanej temperatury oraz ocen (accuracy, NLL, ECE), a także granice wnioskowania przy małych próbkach.
+\\\\\noindent
+Budżet obliczeniowy: CPU, mała MLP, pięć treningów po najwyżej 150 epok.
+
+\subsection{Zmiany względem publikacji}
+Zamiast głębokich sieci na dużych zbiorach obrazów użyta zostanie mała MLP na zbiorze digits. Porównanie metod kalibracji zostanie zawężone do porównania modelu przed i po temperature scaling. Dodany zostanie eksperyment dotyczący rozmiaru próbki kalibracyjnej. Szczegóły zostaną doprecyzowane i odnotowane w kolejnych etapach.
+
+\section{Checkpointy}
+
+    
+\subsection{Prezentacja tematu}
+    Wyjaśnione zostaną trafność i kalibracja, obliczony softmax dla dwóch temperatur, zaplanowany podział danych na trzy rozłączne części oraz ustalone metryki i liczba koszyków ECE.
+
+    
+\subsection{Wstępne wyniki}
+    Przedstawiona zostanie wytrenowana sieć, pierwszy wykres kalibracji oraz wyniki przed i po skalowaniu. Wyjaśniona zostanie realizacja minimalizacji NLL w kodzie i sprawdzone zachowanie argmax.
+
+    
+\subsection{Prezentacja i raport końcowy}
+    Wykonane zostanie badanie rozmiaru próbki kalibracyjnej. Przedstawione zostaną temperatury, NLL, ECE, ich zmienność oraz granice wnioskowania.
+\end{document}

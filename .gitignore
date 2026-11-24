@@ -1,0 +1,18 @@
+/.*/
+/materiały/
+
+/Deklaracja*tematu/*
+
+Etap*1/prezentacja/*
+Etap*1/odtworzenie/*
+!Etap*1/odtworzenie/*/
+Etap*1/protokół badania/*
+Etap*1/informacja o AI/*
+
+!etap1.ipynb
+
+!*.tex
+!*.pdf
+!*.png
+!*.jpg
+
